@@ -12,6 +12,12 @@ const BLOCK_DURATION = 60; // 60 seconds
 
 let attempts = 0;
 let blocked = false;
+let nextUserId = 1000; // user Id
+
+if (fs.existsSync('userId.txt')) {
+    const data = fs.readFileSync('userId.txt', 'utf8');
+    nextUserId = parseInt(data, 10);
+}
 
 function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
@@ -79,8 +85,11 @@ function signUp() {
                 return;
             }
 
-            usersData.push({ username, password: hashedPassword });
+            const userId = nextUserId++;
 
+            usersData.push({ id: userId, username, password: hashedPassword });
+            fs.writeFileSync('userId.txt', nextUserId.toString(), 'utf8') 
+            
             fs.writeFileSync('users.json', JSON.stringify(usersData, null, 2), 'utf8');
 
             console.log('Sign-up successful! User data saved.');

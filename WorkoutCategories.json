@@ -1,0 +1,7 @@
+{
+    "Cardio":{"duration":"150 minutes", "level":"Beginner", "goal":"Weight Loss"},
+    "Strength Training":{"duration":"120 minutes", "level":"Intermediate", "goal":"Muscle Building"},
+    "Flexibility":{"duration":"90 minutes", "level":"Beginner", "goal":"Improve Flexibility"},
+    "HIIT":{"duration":"90 minutes", "level":"Advanced", "goal":"Improve Cardiovascular Health"},
+    "Yoga":{"duration":"120 minutes", "level":"Beginner", "goal":"Stress Relief"}
+}

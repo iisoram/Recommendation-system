@@ -70,6 +70,15 @@ function CheckMedicalHistory(choice) {
     return new Promise((resolve, reject) => {
         if (choice === 1) {
             let medicalHistory = { conditions: [], surgeries: [] };
+            let userAge = null; // Initialize userAge variable
+
+            // Function to ask for user's age
+            function askForAge() {
+                rl.question('Please enter your age: ', (ageAnswer) => {
+                    userAge = parseInt(ageAnswer);
+                    askForConditionOrSurgery(); // Proceed to ask for conditions or surgeries
+                });
+            }
 
             function askForConditionOrSurgery() {
                 rl.question('Do you want to add a medical condition or a surgery?\n1. Medical Condition\n2. Surgery\n3. Done\n', (answer) => {
@@ -87,8 +96,8 @@ function CheckMedicalHistory(choice) {
                             askForConditionOrSurgery(); // Ask for more conditions or surgeries
                         });
                     } else if (selection === 3) {
-                        // User is done adding conditions/surgeries, resolve with medical history
-                        resolve(medicalHistory);
+                        // User is done adding conditions/surgeries, resolve with medical history and age
+                        resolve({ age: userAge, medicalHistory });
                     } else {
                         // Invalid choice, prompt user to choose again
                         console.log('Invalid choice. Please select 1 for Medical Condition, 2 for Surgery, or 3 for Done.');
@@ -97,8 +106,8 @@ function CheckMedicalHistory(choice) {
                 });
             }
 
-            // Initiate the process of adding conditions or surgeries
-            askForConditionOrSurgery();
+            // Initiate the process by asking for the user's age
+            askForAge();
         } else {
             // User has no medical history, resolve with null
             resolve(null);
